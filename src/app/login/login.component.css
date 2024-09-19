@@ -1,0 +1,10 @@
+div ::before{
+    border: none;
+    }
+    
+    div input:focus {
+        border: 2px solid #f8982d;
+    }
+    .login{
+        color: white;
+    }

@@ -1,0 +1,155 @@
+<header class="w-100">
+  <!-- Top Bar -->
+
+  <!-- Main Navbar -->
+  <div class="bg-white py-2 px-4 shadow-sm">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-4">
+      <div class="d-flex align-items-center gap-4">
+        <button
+          class="btn btn-light d-lg-none"
+          (click)="toggleDropdown('categories')"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+        <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="h2 text-warning text-decoration-none">JUMIA</a>
+      </div>
+
+      <div class="flex-grow-1 max-w-xl order-3 order-lg-2 w-100 w-lg-auto">
+        <div class="position-relative">
+          <input
+            type="search"
+            [(ngModel)]="searchQuery"
+            placeholder="Search products, brands and categories"
+            class="form-control pl-5 pr-4 py-2 rounded border-warning"
+          />
+          <i class="bi bi-search position-absolute top-50 start-3 translate-middle-y text-muted"></i>
+          <button (click)="performSearch()" class="btn btn-warning position-absolute top-0 end-0 h-100 rounded-end">
+            SEARCH
+          </button>
+        </div>
+      </div>
+
+      <nav class="d-flex align-items-center gap-3 text-sm order-2 order-lg-3">
+        <div  [hidden]="isLogged">
+          <a 
+          class=" btn btn-link text-dark d-flex align-items-center" 
+          routerLinkActive="active" 
+          routerLink="/signup"
+          >
+            Sign Up
+        </a>
+        </div>
+       
+        <div  [hidden]="isLogged"><a 
+        
+        class=" btn btn-link text-dark d-flex align-items-center" 
+        routerLinkActive="active" 
+        routerLink="/login"
+        >
+          Login 
+      </a>
+    </div>
+        <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="btn btn-link text-dark d-flex align-items-center">
+          <span class="d-none d-sm-inline">Home</span>
+        </a>
+        <div class="position-relative">
+
+          <button
+            (click)="toggleDropdown('account')"
+            class="btn btn-link text-dark"
+            [attr.aria-expanded]="accountOpen">
+            <i class="bi bi-person"></i>
+            <span class="d-none d-sm-inline">Account</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div *ngIf="accountOpen" class="dropdown-menu dropdown-menu-end show">
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-person"></i> My Account
+            </a>
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-credit-card"></i> Orders
+            </a>
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-gear"></i> Settings
+            </a>
+            <a routerLink="/login" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-box-arrow-right"></i>
+              <span (click)="logout()"> Logout</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="position-relative">
+          <button
+            (click)="toggleDropdown('help')"
+            class="btn btn-link text-dark"
+            [attr.aria-expanded]="helpOpen"
+          >
+            <i class="bi bi-question-circle"></i>
+            <span class="d-none d-sm-inline">Help</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          
+          <div *ngIf="helpOpen" class="dropdown-menu dropdown-menu-end show">
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-chat"></i> Help Center
+            </a>
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-file-earmark-text"></i> Place & Track Order
+            </a>
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-credit-card"></i> Order Cancellation
+            </a>
+            <a routerLink="/home" routerLinkActive="activebutton" aria-current="page" class="dropdown-item">
+              <i class="bi bi-book"></i> Returns & Refunds
+            </a>
+          </div>
+        </div>
+
+        <a routerLink="/cart" routerLinkActive="activebutton" aria-current="page" class="btn btn-link text-dark d-flex align-items-center">
+          <i class="bi bi-cart"></i>
+          <span class="d-none d-sm-inline">Cart</span>
+        </a>
+        <!-- <a routerLink="/addProduct" routerLinkActive="activebutton" aria-current="page" class="btn btn-link text-dark d-flex align-items-center">
+          <span class="d-none d-sm-inline">Admin</span>
+        </a> -->
+        <!-- isAdmin -->
+          
+        <div  [hidden]="!isLogged"><a 
+          class=" btn btn-link text-dark d-flex align-items-center" 
+          routerLinkActive="active" 
+          routerLink="/addProduct"
+          >
+            Admin
+        </a>
+      </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Categories Dropdown -->
+  <!-- <div class="bg-warning">
+    <div class="container">
+      <button
+        (click)="toggleDropdown('categories')"
+        class="btn btn-warning text-white w-100 text-start"
+        [attr.aria-expanded]="categoriesOpen"
+      >
+        <i class="bi bi-list"></i> Categories
+        <i class="bi bi-chevron-down"></i>
+      </button>
+      <div *ngIf="categoriesOpen" class="dropdown-menu show w-100">
+        <div class="container d-grid gap-2">
+          <a href="#" class="dropdown-item">Supermarket</a>
+          <a href="#" class="dropdown-item">Health & Beauty</a>
+          <a href="#" class="dropdown-item">Home & Office</a>
+          <a href="#" class="dropdown-item">Phones & Tablets</a>
+          <a href="#" class="dropdown-item">Computing</a>
+          <a href="#" class="dropdown-item">Electronics</a>
+          <a href="#" class="dropdown-item">Fashion</a>
+          <a href="#" class="dropdown-item">Baby Products</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</header>
